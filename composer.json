@@ -1,0 +1,11 @@
+{
+    "name": "cyllenea/ldap",
+    "description": "Multiple LDAP Authenticator",
+    "type": "library",
+    "license": "MIT",
+    "require": {},
+
+    "autoload": {
+        "psr-4": { "cyllenea\\ldap\\": "src/" }
+    }
+}
