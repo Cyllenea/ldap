@@ -2,22 +2,18 @@
 
 namespace cyllenea\ldap;
 
-use Nette;
 use cyllenea\ldap\Exception\LDAPErrorException;
+use Nette;
 
 final class Authenticator implements Nette\Security\IAuthenticator
 {
-    /** @var LDAP $ldap */
-    private $ldap;
 
-    /** @var Callable */
-    public $parseAttributes;
-
-    /** @var Callable */
-    public $identityGenerator;
+    private LDAP $ldap;
+    public array $parseAttributes;
+    public array $identityGenerator;
 
     /** @var callable|array */
-    public $onSuccess = [];
+    public array $onSuccess = [];
 
     public function __construct(LDAP $ldap)
     {

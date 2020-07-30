@@ -5,75 +5,52 @@ namespace cyllenea\ldap;
 class Controller
 {
 
-    /** @var string Hostname */
-    protected $host;
+    protected string $host;
+    protected int $port = 389;
+    protected string $dn;
+    protected string $domain;
 
-    /** @var int Port */
-    protected $port = 389;
-
-    /** @var string Distinguished Name */
-    protected $dn;
-
-    /** @var string Domain */
-    protected $domain;
-
-    /** @return string */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
 
-    /** @param string $host */
-    public function setHost($host)
+    public function setHost(string $host)
     {
         $this->host = $host;
     }
 
-    /**
-     * @return int
-     */
-    public function getPort()
+    public function getPort(): int
     {
         return $this->port;
     }
 
-    /**
-     * @param int $port
-     */
-    public function setPort($port)
+    public function setPort(int $port)
     {
         $this->port = $port;
     }
 
-    /** @return string */
-    public function getDn()
+    public function getDn(): string
     {
         return $this->dn;
     }
 
-    /** @param string $dn */
-    public function setDn($dn)
+    public function setDn(string $dn)
     {
         $this->dn = $dn;
     }
 
-    /** @return string */
-    public function getDomain()
+    public function getDomain(): string
     {
         return sprintf($this->domain, '');
     }
 
-    /**
-     * @param string $username
-     * @return string
-     */
-    public function getUserDomain($username)
+    public function getUserDomain(string $username): string
     {
         return sprintf($this->domain, $username);
     }
 
-    /** @param string $domain */
-    public function setDomain($domain)
+    public function setDomain(string $domain)
     {
         $this->domain = $domain;
     }

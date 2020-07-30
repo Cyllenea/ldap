@@ -1,5 +1,5 @@
-Konfigurační soubor
-===================
+Configuration
+=============
 
 ```
 extensions:
@@ -24,7 +24,7 @@ ldap:
             dn: "OU=COMPANY,DC=wnc,DC=local"
 
         wv:
-            host: WVDC01.wv.local
+            host: wvdc01.wv.local
             port: 389
             domain: "%s@wv.local"
             dn: "OU=COMPANY,DC=wv,DC=local"

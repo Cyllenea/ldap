@@ -3,24 +3,26 @@
 namespace cyllenea\ldap;
 
 use cyllenea\ldap\Exception\LDAPErrorException;
+use function ldap_bind;
+use function ldap_unbind;
+use function ldap_set_option;
+use function ldap_connect;
+use function ldap_search;
+use function ldap_get_entries;
+use function ldap_get_attributes;
+use function ldap_first_entry;
 
 class LDAP
 {
 
-    /** @var array */
-    protected $controllers = [];
-
-    /** @var string */
-    protected $filter = "(sAMAccountName=%s)";
-
-    /** @var array */
-    protected $attributes = [];
+    protected array $controllers = [];
+    protected string $filter = "(sAMAccountName=%s)";
+    protected array $attributes = [];
 
     /** LDAP */
     protected $ldap;
 
-    /** @var null|Controller */
-    protected $loggedIn = NULL;
+    protected ?Controller $loggedIn = null;
 
     public function __construct($controllers = [], $attributes = [])
     {
@@ -44,7 +46,7 @@ class LDAP
      * @return bool
      * @throws LDAPErrorException
      */
-    public function login($username, $password)
+    public function login(string $username, string $password)
     {
         /** @var Controller $controller */
         foreach ($this->controllers as $controller) {
@@ -82,18 +84,13 @@ class LDAP
         return true;
     }
 
-    /**
-     * @return bool
-     */
-    public function isLoggedIn()
+    public function isLoggedIn(): bool
     {
         return $this->loggedIn !== null;
     }
 
-    /**
-     * @return null|Controller
-     */
-    public function getLoggedInController()
+
+    public function getLoggedInController(): ?Controller
     {
         return $this->loggedIn ?? null;
     }
@@ -132,11 +129,7 @@ class LDAP
         }
     }
 
-    /**
-     * @param array $attributes LDAP Attributes
-     * @return array
-     */
-    public function parseAttributes(array $attributes = [])
+    public function parseAttributes(array $attributes = []): array
     {
         $output = [];
 
@@ -158,44 +151,28 @@ class LDAP
         return $output;
     }
 
-    /**
-     * @return void
-     */
-    public function disconnect()
+    public function disconnect(): void
     {
         @ldap_unbind($this->ldap);
         $this->loggedIn = null;
     }
 
-    /**
-     * @param Controller $controller
-     * @return int index
-     */
-    public function addController(Controller $controller)
+    public function addController(Controller $controller): int
     {
         return array_push($this->controllers, $controller);
     }
 
-    /**
-     * @return array
-     */
-    public function getControllers()
+    public function getControllers(): array
     {
         return $this->controllers;
     }
 
-    /**
-     * @return array
-     */
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
 
-    /**
-     * @param array $attributes
-     */
-    public function setAttributes($attributes)
+    public function setAttributes(array $attributes)
     {
         $this->attributes = $attributes;
     }

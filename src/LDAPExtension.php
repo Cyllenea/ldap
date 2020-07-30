@@ -9,8 +9,8 @@ use Nette\Reflection\Extension;
 
 class LDAPExtension extends CompilerExtension
 {
-    /** @var array */
-    private $defaults = [
+
+    private array $defaults = [
         'attributes' => [
             "employeeNumber",
             "employeeID",
